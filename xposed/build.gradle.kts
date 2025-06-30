@@ -1,6 +1,6 @@
 import com.android.ide.common.signing.KeystoreHelper import org.jetbrains.kotlin.gradle.tasks.KotlinCompile import java.io.PrintStream import java.util.Locale
 
-plugins { alias(libs.plugins.agp.lib) alias(libs.plugins.refine) alias(libs.plugins.kotlin) }
+plugins { id("com.android.library") id("org.jetbrains.kotlin.android") }
 
 android { namespace = "icu.nullptr.hidemyapplist.xposed"
 
@@ -66,4 +66,5 @@ implementation(libs.dev.rikka.hidden.compat)
 
 compileOnly(libs.de.robv.android.xposed.api)
 compileOnly(libs.dev.rikka.hidden.stub)
+
 }
