@@ -14,7 +14,6 @@ kotlin { jvmToolchain(21) }
 
 afterEvaluate { // Skip generating Magic.java when running in CI (e.g., GitHub Actions) to avoid missing signing keys. val isCI = System.getenv("CI")?.equals("true", ignoreCase = true) ?: false if (isCI) { logger.lifecycle("⏭️  CI environment detected; skipping Magic.java signature generation task.") return@afterEvaluate }
 
-//noinspection WrongGradleMethod
 android.libraryVariants.forEach { variant ->
     val variantCapped = variant.name.replaceFirstChar { it.titlecase(Locale.ROOT) }
     val variantLowered = variant.name.lowercase(Locale.ROOT)
@@ -24,8 +23,7 @@ android.libraryVariants.forEach { variant ->
     val signInfoTask = tasks.register("generate${variantCapped}SignInfo") {
         outputs.file(outSrc)
         doLast {
-            val sign = android.buildTypes[variantLowered].signingConfig
-                ?: error("Signing config for $variantLowered not found.")
+            val sign = android.buildTypes[variantLowered].signingConfig ?: return@doLast
             outSrc.asFile.parentFile.mkdirs()
             val certificateInfo = KeystoreHelper.getCertificateInfo(
                 sign.storeType,
