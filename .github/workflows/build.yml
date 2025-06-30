@@ -1,7 +1,7 @@
 name: Android Build
 
 on:
-  workflow_dispatch:  # 允许手动触发构建
+  workflow_dispatch:
 
 jobs:
   build:
@@ -22,10 +22,12 @@ jobs:
       run: chmod +x ./gradlew
 
     - name: Build APK
-      run: ./gradlew assembleDebug
+      run: ./gradlew :xposed:assembleRelease
+      env:
+        CI: true  # 👈 传入 CI 环境变量，禁用签名生成
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: Hide-My-Applist-APK
-        path: app/build/outputs/apk/debug/*.apk
+        path: xposed/build/outputs/apk/release/*.apk  # 👈 注意：路径改为 xposed 模块
