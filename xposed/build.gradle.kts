@@ -1,6 +1,6 @@
-import com.android.ide.common.signing.KeystoreHelper import org.jetbrains.kotlin.gradle.tasks.KotlinCompile import java.io.PrintStream import java.util.Locale
-
 plugins { id("com.android.library") id("org.jetbrains.kotlin.android") }
+
+import com.android.ide.common.signing.KeystoreHelper import org.jetbrains.kotlin.gradle.tasks.KotlinCompile import java.io.PrintStream import java.util.Locale
 
 android { namespace = "icu.nullptr.hidemyapplist.xposed"
 
